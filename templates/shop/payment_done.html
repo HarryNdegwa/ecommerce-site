@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="done-section">
+	<div class="done-stmt">
+		<p>You have successfully made a payment.</p>
+	</div>
+	<div class="reverse">
+		<a href="{% url 'shop_items_url' %}"><p>Back to shop</p></a>
+	</div>
+</div>
+{% endblock %}

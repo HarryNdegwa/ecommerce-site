@@ -1,0 +1,108 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Shopping site</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" 
+	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-default">
+		<div class="nav-brand">
+			<p>Mazemall</p>
+		</div>
+		{% if user.is_authenticated %}
+			{% if user.cart_set.count %}
+				<div class="cart-section">
+					<a href="{% url 'view_cart' buyer_id=user.id %}"><span class="fas fa-cart-plus cart"><span class="badge">{{ user.cart_set.count }}</span></span></a>
+				</div>
+			{% endif %}
+		{% endif %}
+		{% if user.is_authenticated %}
+			{% if user.notification_set.count %}
+				<div class="notification-">
+					<a href="{% url 'notification_url'%}"><span style='color:yellow;' class="far fa-bell"><span class="badge">{{ user.notification_set.count }}</span></span></a>
+				</div>
+			{% endif %}
+		{% endif %}
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="fas fa-bars"></span>
+		 </button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			{% if user.is_authenticated %}
+			<ul class="navbar-nav ml-auto">
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="{% url 'shop_items_url' %}">Items</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="#">Orders</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="#">gift cards</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="#">About us</a></li>
+				</div>
+				<div class="dropdown">
+					<a class="dropdown-link" href="#">My Account<span class="ml-2 fas fa-angle-down"></span></a>
+					<div class="dropdown-elements">
+						<div class="links">
+							<li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+						</div>
+						<div class="links">
+							<li class="nav-item"><a class="nav-link" href="{% url 'change_password' %}">Change password</a></li>
+						</div>
+						<div class="links">
+							<li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Sign out</a></li>
+						</div>
+					</div>
+				</div>
+			</ul>
+			{% else %}
+			<ul class="navbar-nav ml-auto">
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+				</div>
+				<div class="links">
+					<li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+				</div>
+			</ul>
+			{% endif %}
+		</div>
+	</nav>
+	<content>
+	{% if messages %}
+	{% for message in messages %}
+		<ul>
+			<div class="message">
+				<li>{{ message }}</li>
+			</div>
+		</ul>
+	{% endfor %}
+	{% endif %}
+	{% block content %}
+
+	{% endblock %}
+	</content>
+	<!-- <footer class="footer-section"></footer> -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

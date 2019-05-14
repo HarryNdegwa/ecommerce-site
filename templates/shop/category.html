@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="search_section">
+	<div class="items_">
+		{% if items %}
+			{% for item in items %}
+				<div class="searched_item">
+					<div><img class="item-img" src="{{ item.item_image.url }}"></div>
+					<div class="item-prev-cost"><strike>ksh.20.00</strike></div>
+					<div class="item-cost">ksh.{{ item.price }}</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+</div>
+{% endblock content %}
